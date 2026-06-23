@@ -1,18 +1,14 @@
 import { Button } from "@/components/ui/button"
+import { PageLayout, PageHeader } from "@/components/layout/page-layout"
 import { Home, ArrowRight, Zap, Shield, Sparkles } from "lucide-react"
 
 export default function HomePage() {
   return (
-    <div className="container mx-auto p-4 md:p-8 space-y-6 max-w-4xl">
-      <div className="flex items-center gap-3">
-        <div className="p-2 bg-primary/10 text-primary rounded-lg">
-          <Home className="h-6 w-6" />
-        </div>
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Home Dashboard</h1>
-          <p className="text-muted-foreground text-sm">Welcome back! Here is your workspace overview.</p>
-        </div>
-      </div>
+    <PageLayout>
+      <PageHeader
+        icon={<Home className="h-6 w-6" />}
+        title="Home"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="p-5 border rounded-xl bg-card text-card-foreground shadow-sm space-y-2">
@@ -43,6 +39,6 @@ export default function HomePage() {
           </Button>
         </div>
       </div>
-    </div>
+    </PageLayout>
   )
 }

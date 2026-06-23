@@ -1,68 +1,93 @@
 import { Button } from "@/components/ui/button"
-import { Globe, Plus, Folder, Users, Settings } from "lucide-react"
+import { PageLayout, PageHeader } from "@/components/layout/page-layout"
+import { Plus, ChevronDown, ListFilter, Folders } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { SpaceCard } from "@/components/space/space-card"
+import { ProjectCard } from "@/components/space/project-card"
+import type { Space, Project } from "@/components/space/types"
+
+const initialSpaces: Space[] = [
+  {
+    id: 1,
+    name: "Production",
+    projects: [
+      { id: 11, name: "API Gateway", color: "#10b981", updatedAt: "2h ago" },
+      { id: 12, name: "Auth Service", color: "#3b82f6", updatedAt: "5h ago" },
+      { id: 13, name: "Analytics Dashboard", color: "#f59e0b", updatedAt: "3d ago" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Staging",
+    projects: [
+      { id: 21, name: "Frontend App", color: "#8b5cf6", updatedAt: "1h ago" },
+      { id: 22, name: "Mobile Backend", color: "#ec4899", updatedAt: "Yesterday" },
+    ],
+  },
+  {
+    id: 3,
+    name: "Dev Sandbox",
+    projects: [],
+  },
+]
+
+const unspacedProjects: Project[] = [
+  { id: 101, name: "Docs Site", color: "#06b6d4", updatedAt: "4h ago" },
+  { id: 102, name: "CLI Tool", color: "#64748b", updatedAt: "1w ago" },
+]
 
 export default function SpacePage() {
-  const spaces = [
-    { id: 1, name: "Production API", status: "Active", users: 5, type: "API Space" },
-    { id: 2, name: "Frontend Sandbox", status: "Active", users: 2, type: "Web App" },
-    { id: 3, name: "Data Processing", status: "Inactive", users: 0, type: "Pipeline" },
-  ]
-
   return (
-    <div className="container mx-auto p-4 md:p-8 space-y-6 max-w-4xl">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary/10 text-primary rounded-lg">
-            <Globe className="h-6 w-6" />
-          </div>
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Spaces</h1>
-            <p className="text-muted-foreground text-sm">Manage workspaces and environment configurations.</p>
-          </div>
-        </div>
-        <Button size="sm" className="gap-1.5 hidden sm:flex">
-          <Plus className="h-4 w-4" /> New Space
-        </Button>
-      </div>
-
-      <div className="grid grid-cols-1 gap-4">
-        {spaces.map((space) => (
-          <div key={space.id} className="p-5 border rounded-xl bg-card text-card-foreground shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-start gap-4">
-              <div className="p-3 bg-muted rounded-lg hidden sm:block">
-                <Folder className="h-5 w-5 text-muted-foreground" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-semibold text-base flex items-center gap-2">
-                  {space.name}
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                    space.status === "Active" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"
-                  }`}>
-                    {space.status}
-                  </span>
-                </h3>
-                <p className="text-xs text-muted-foreground">{space.type} • Updated 2 hours ago</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-6 justify-between sm:justify-end border-t sm:border-t-0 pt-3 sm:pt-0">
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Users className="h-4 w-4" />
-                <span>{space.users} members</span>
-              </div>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
-                <Settings className="h-4 w-4" />
+    <PageLayout>
+      <PageHeader
+        icon={<Folders className="h-6 w-6" />}
+        title="Spaces"
+        actions={
+          <div className="hidden sm:flex items-center gap-2">
+            <Button size="sm" variant="outline" className="gap-1.5">
+              <ListFilter className="h-4 w-4" />
+              Filter
+            </Button>
+            <div className="flex items-center">
+              <Button size="sm" variant="outline" className="rounded-r-none border-r-0 gap-1.5">
+                <Plus className="h-4 w-4" />
+                New Project
               </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Button size="sm" variant="outline" className="rounded-l-none px-2">
+                    <ChevronDown className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem>
+                    <Plus className="h-4 w-4 mr-2" />
+                    New Space
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
+        }
+      />
+
+      <div className="space-y-1.5">
+        {initialSpaces.map((space) => (
+          <SpaceCard key={space.id} space={space} />
+        ))}
+        {unspacedProjects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
 
-      <div className="flex justify-center sm:hidden pt-2">
+      <div className="flex sm:hidden flex-col gap-2 pt-2">
         <Button className="w-full gap-1.5">
           <Plus className="h-4 w-4" /> New Space
         </Button>
+        <Button variant="outline" className="w-full gap-1.5">
+          <Plus className="h-4 w-4" /> New Project
+        </Button>
       </div>
-    </div>
+    </PageLayout>
   )
 }

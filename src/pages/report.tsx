@@ -1,28 +1,24 @@
 import { Button } from "@/components/ui/button"
+import { PageLayout, PageHeader } from "@/components/layout/page-layout"
 import { BarChart3, Download, TrendingUp, AlertCircle, RefreshCw } from "lucide-react"
 
 export default function ReportPage() {
   return (
-    <div className="container mx-auto p-4 md:p-8 space-y-6 max-w-4xl">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary/10 text-primary rounded-lg">
-            <BarChart3 className="h-6 w-6" />
-          </div>
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Analytics & Reports</h1>
-            <p className="text-muted-foreground text-sm">Review metrics, performance charts, and exports.</p>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <Button size="sm" variant="outline" className="gap-1.5 flex-1 sm:flex-initial">
-            <RefreshCw className="h-4 w-4" /> Refresh
-          </Button>
-          <Button size="sm" className="gap-1.5 flex-1 sm:flex-initial">
-            <Download className="h-4 w-4" /> Export
-          </Button>
-        </div>
-      </div>
+    <PageLayout>
+      <PageHeader
+        icon={<BarChart3 className="h-6 w-6" />}
+        title="Reports"
+        actions={
+          <>
+            <Button size="sm" variant="outline" className="gap-1.5 flex-1 sm:flex-initial">
+              <RefreshCw className="h-4 w-4" /> Refresh
+            </Button>
+            <Button size="sm" className="gap-1.5 flex-1 sm:flex-initial">
+              <Download className="h-4 w-4" /> Export
+            </Button>
+          </>
+        }
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="p-6 border rounded-xl bg-card text-card-foreground shadow-sm space-y-4">
@@ -54,14 +50,14 @@ export default function ReportPage() {
           <h3 className="font-semibold text-base">Key Insights</h3>
           <div className="space-y-4 pt-2">
             <div className="flex items-start gap-3 text-xs md:text-sm">
-              <AlertCircle className="h-5 w-5 text-indigo-500 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="h-5 w-5 text-indigo-500 shrink-0 mt-0.5" />
               <div>
                 <h4 className="font-medium">Traffic Peak</h4>
                 <p className="text-muted-foreground mt-0.5">Highest activity detected on Friday between 14:00 and 16:00 UTC.</p>
               </div>
             </div>
             <div className="flex items-start gap-3 text-xs md:text-sm">
-              <AlertCircle className="h-5 w-5 text-indigo-500 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="h-5 w-5 text-indigo-500 shrink-0 mt-0.5" />
               <div>
                 <h4 className="font-medium">Latency Drop</h4>
                 <p className="text-muted-foreground mt-0.5">Database scaling operations successfully lowered lookup latency by 20%.</p>
@@ -70,6 +66,6 @@ export default function ReportPage() {
           </div>
         </div>
       </div>
-    </div>
+    </PageLayout>
   )
 }

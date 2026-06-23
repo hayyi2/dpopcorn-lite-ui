@@ -1,4 +1,4 @@
-import { Home, BarChart3, LayoutGrid, Timer } from "lucide-react"
+import { Home, BarChart3, Timer, Folders } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 
 export interface NavItem {
@@ -9,7 +9,7 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { to: "/", label: "Home", icon: Home },
-  { to: "/space", label: "Space", icon: LayoutGrid },
+  { to: "/space", label: "Spaces", icon: Folders },
   { to: "/logs", label: "Logs", icon: Timer },
   { to: "/report", label: "Report", icon: BarChart3 },
 ]
