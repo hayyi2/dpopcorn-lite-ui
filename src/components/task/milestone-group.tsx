@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ChevronDown, ChevronRight, Milestone as MilestoneIcon, MoreHorizontal } from "lucide-react"
+import { ChevronDown, ChevronRight, Milestone as MilestoneIcon, MoreHorizontal, Calendar, ListTodo } from "lucide-react"
 import type { Milestone, Task } from "./types"
 import { TaskRow } from "./task-row"
 
@@ -31,11 +31,19 @@ export function MilestoneGroup({
             </span>
             <MilestoneIcon className="h-3.5 w-4 text-primary/70 shrink-0" />
             <span className="text-sm font-medium text-foreground/80 truncate">{milestone.title}</span>
-            {milestone.deadline && (
-              <span className="text-[11px] text-muted-foreground ml-1 shrink-0">{milestone.deadline}</span>
-            )}
-            <span className="ml-auto text-[11px] text-muted-foreground shrink-0 pr-1">
-              {done}/{tasks.length}
+            <span className="ml-auto flex items-center gap-2 shrink-0 pr-1">
+              {milestone.deadline && (
+                <span className="flex items-center gap-0.5 text-[11px] text-muted-foreground">
+                  <Calendar className="h-3.5 w-3.5 shrink-0" />
+                  {milestone.deadline}
+                </span>
+              )}
+              <span className="flex items-center gap-0.5 text-[11px] text-muted-foreground">
+                <ListTodo className="h-3.5 w-3.5 shrink-0" />
+                {done}
+                <span className="text-muted-foreground/40">/</span>
+                {tasks.length}
+              </span>
             </span>
           </button>
 

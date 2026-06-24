@@ -1,5 +1,13 @@
 import { useState } from "react"
-import { MoreHorizontal, Play, ChevronDown, ChevronRight, GripVertical } from "lucide-react"
+import {
+  MoreHorizontal,
+  Play,
+  ChevronDown,
+  ChevronRight,
+  GripVertical,
+  Calendar,
+  Timer
+} from "lucide-react"
 import type { Task } from "./types"
 import { TodoIcon, DoneIcon } from "./task-icons"
 import { formatMinutes } from "./utils"
@@ -31,7 +39,7 @@ export function TaskRow({
             <button
               onClick={() => setOpen((v) => !v)}
               className="h-6 w-6 rounded-md flex items-center justify-center transition-all text-muted-foreground/50 hover:text-muted-foreground hover:bg-muted"
-              >
+            >
               {/* className="shrink-0 text-muted-foreground hover:text-foreground transition-colors" */}
               {open ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
             </button>
@@ -40,8 +48,8 @@ export function TaskRow({
           <button
             onClick={() => onToggleDone(task.id)}
             className={`h-6 w-6 rounded-md flex items-center justify-center transition-all ${task.done
-                ? "text-muted-foreground/50 hover:text-muted-foreground hover:bg-muted"
-                : "text-primary hover:bg-primary/10"
+              ? "text-muted-foreground/50 hover:text-muted-foreground hover:bg-muted"
+              : "text-primary hover:bg-primary/10"
               }`}
           >
             {task.done ? <DoneIcon /> : <TodoIcon />}
@@ -56,10 +64,16 @@ export function TaskRow({
         {/* meta + actions */}
         <div className="flex items-center gap-1.5 shrink-0">
           {task.deadline && (
-            <span className="text-[11px] text-muted-foreground hidden sm:block mr-1.5">{task.deadline}</span>
+            <span className="items-center gap-0.5 text-[11px] text-muted-foreground hidden sm:flex mr-1.5">
+              <Calendar className="h-3.5 w-3.5 shrink-0" />
+              {task.deadline}
+            </span>
           )}
-          <span className="text-[11px] text-muted-foreground hidden sm:block mr-1.5">
-            {formatMinutes(task.timer_logged)}&nbsp;/&nbsp;{formatMinutes(task.estimasi_durasi)}
+          <span className="items-center gap-0.5 text-[11px] text-muted-foreground hidden sm:flex mr-1.5">
+            <Timer className="h-3.5 w-3.5 shrink-0" />
+            {formatMinutes(task.timer_logged)}
+            <span className="text-muted-foreground/40">/</span>
+            {formatMinutes(task.estimasi_durasi)}
           </span>
           {/* start timer */}
           <button className="h-6 w-6 rounded-md flex items-center justify-center hover:bg-primary/10 hover:text-primary text-muted-foreground transition-all">
