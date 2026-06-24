@@ -1,3 +1,9 @@
+export type Milestone = {
+  id: number
+  title: string
+  deadline: string | null
+}
+
 export type Task = {
   id: number
   title: string
@@ -6,6 +12,7 @@ export type Task = {
   timer_logged: number // minutes
   done: boolean
   subtasks: SubTask[]
+  milestone_id: number | null
 }
 
 export type SubTask = {
