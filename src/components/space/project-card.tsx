@@ -21,7 +21,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <span>{project.name}</span>
       </NavLink>
       <div className="flex items-center gap-2 shrink-0">
-        <span className="text-[11px] text-muted-foreground hidden sm:block">{project.updatedAt}</span>
+        <span className="text-xs text-muted-foreground hidden sm:block">{project.updatedAt}</span>
         <button className="h-6 w-6 rounded-md flex items-center justify-center hover:bg-muted transition-all">
           <MoreHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
         </button>

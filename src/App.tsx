@@ -3,7 +3,7 @@ import AppLayout from "@/components/layout/app-layout"
 import ProjectLayout from "@/components/layout/project-layout"
 import HomePage from "@/pages/home"
 import SpacePage from "@/pages/space"
-import LogsPage from "@/pages/logs"
+import TimerLogsPage from "@/pages/timer"
 import ReportPage from "@/pages/report"
 import DetailPage from "@/pages/project/detail"
 import TaskPage from "@/pages/project/task"
@@ -20,7 +20,7 @@ export function App() {
           <Route path="tasks" element={<TaskPage />} />
           <Route path="timer" element={<TimerPage />} />
         </Route>
-        <Route path="logs" element={<LogsPage />} />
+        <Route path="timer" element={<TimerLogsPage />} />
         <Route path="report" element={<ReportPage />} />
       </Route>
     </Routes>

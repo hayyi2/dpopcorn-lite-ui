@@ -64,12 +64,12 @@ export function TaskRow({
         {/* meta + actions */}
         <div className="flex items-center gap-1.5 shrink-0">
           {task.deadline && (
-            <span className="items-center gap-0.5 text-[11px] text-muted-foreground hidden sm:flex mr-1.5">
+            <span className="justify-center gap-0.5 text-xs text-muted-foreground hidden sm:flex mr-1.5">
               <Calendar className="h-3.5 w-3.5 shrink-0" />
               {task.deadline}
             </span>
           )}
-          <span className="items-center gap-0.5 text-[11px] text-muted-foreground hidden sm:flex mr-1.5">
+          <span className="justify-center gap-0.5 text-xs text-muted-foreground hidden sm:flex mr-1.5">
             <Timer className="h-3.5 w-3.5 shrink-0" />
             {formatMinutes(task.timer_logged)}
             <span className="text-muted-foreground/40">/</span>

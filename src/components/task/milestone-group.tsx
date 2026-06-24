@@ -33,12 +33,12 @@ export function MilestoneGroup({
             <span className="text-sm font-medium text-foreground/80 truncate">{milestone.title}</span>
             <span className="ml-auto flex items-center gap-2 shrink-0 pr-1">
               {milestone.deadline && (
-                <span className="flex items-center gap-0.5 text-[11px] text-muted-foreground">
+                <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                   <Calendar className="h-3.5 w-3.5 shrink-0" />
                   {milestone.deadline}
                 </span>
               )}
-              <span className="flex items-center gap-0.5 text-[11px] text-muted-foreground">
+              <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <ListTodo className="h-3.5 w-3.5 shrink-0" />
                 {done}
                 <span className="text-muted-foreground/40">/</span>

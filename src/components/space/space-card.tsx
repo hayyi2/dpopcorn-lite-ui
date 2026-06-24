@@ -26,7 +26,7 @@ export function SpaceCard({ space }: { space: Space }) {
         </div>
         <span className="text-sm flex-1 truncate">{space.name}</span>
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-[11px] text-muted-foreground hidden sm:block">
+          <span className="text-xs text-muted-foreground hidden sm:block">
             {space.projects.length} project{space.projects.length !== 1 ? "s" : ""}
           </span>
           <button className="h-6 w-6 rounded-md flex items-center justify-center hover:bg-muted transition-all">

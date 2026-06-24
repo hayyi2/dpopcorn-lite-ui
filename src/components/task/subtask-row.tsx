@@ -36,9 +36,9 @@ export function SubTaskRow({
 
       <div className="flex items-center gap-1.5 shrink-0">
         {subtask.deadline && (
-          <span className="text-[11px] text-muted-foreground hidden sm:block mr-1.5">{subtask.deadline}</span>
+          <span className="text-xs text-muted-foreground hidden sm:block mr-1.5">{subtask.deadline}</span>
         )}
-        <span className="text-[11px] text-muted-foreground hidden sm:block mr-1.5">
+        <span className="text-xs text-muted-foreground hidden sm:block mr-1.5">
           {formatMinutes(subtask.timer_logged)}&nbsp;/&nbsp;{formatMinutes(subtask.estimasi_durasi)}
         </span>
         {/* start timer */}
