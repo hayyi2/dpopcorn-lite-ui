@@ -11,7 +11,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <GripVertical className="h-3.5 w-3.5" />
         </button>
         <div className="h-6 w-6 flex items-center justify-center">
-          <SquareRoundedIcon color={project.color} />
+          <SquareRoundedIcon color={project.color} className="size-4.5" />
         </div>
       </div>
       <NavLink

@@ -1,19 +1,13 @@
-import { useState } from "react"
-import { useParams, useNavigate } from "react-router"
-import { Button } from "@/components/ui/button"
-import { PageLayout, PageHeader } from "@/components/layout/page-layout"
-import { Plus, ListFilter, LayoutList, ArrowLeft } from "lucide-react"
-import { MilestoneGroup } from "@/components/task/milestone-group"
 import type { Milestone, Task } from "@/components/task/types"
 
-type ProjectData = {
+export type ProjectData = {
   projectName: string
   color: string
   milestones: Milestone[]
   tasks: Task[]
 }
 
-const mockTasksByProject: Record<string, ProjectData> = {
+export const mockProjects: Record<string, ProjectData> = {
   "11": {
     projectName: "API Gateway",
     color: "#10b981",
@@ -135,112 +129,4 @@ const mockTasksByProject: Record<string, ProjectData> = {
       },
     ],
   },
-}
-
-export default function TaskPage() {
-  const { projectId } = useParams<{ projectId: string }>()
-  const navigate = useNavigate()
-
-  const data = projectId ? mockTasksByProject[projectId] : undefined
-
-  const [tasks, setTasks] = useState<Task[]>(data?.tasks ?? [])
-
-  function toggleDone(id: number) {
-    setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
-    )
-  }
-
-  function toggleSubDone(taskId: number, subId: number) {
-    setTasks((prev) =>
-      prev.map((t) =>
-        t.id === taskId
-          ? {
-              ...t,
-              subtasks: t.subtasks.map((s) =>
-                s.id === subId ? { ...s, done: !s.done } : s
-              ),
-            }
-          : t
-      )
-    )
-  }
-
-  if (!data) {
-    return (
-      <PageLayout>
-        <div className="flex flex-col items-center gap-4 py-16 text-muted-foreground">
-          <p>Project not found.</p>
-          <Button variant="outline" onClick={() => navigate("/space")}>
-            <ArrowLeft className="h-4 w-4 mr-2" /> Back to Spaces
-          </Button>
-        </div>
-      </PageLayout>
-    )
-  }
-
-  // Group tasks by milestone, then ungrouped at the end
-  const milestoneGroups: { milestone: Milestone | null; tasks: Task[] }[] = [
-    ...data.milestones.map((m) => ({
-      milestone: m,
-      tasks: tasks.filter((t) => t.milestone_id === m.id),
-    })),
-  ]
-
-  const ungrouped = tasks.filter((t) => t.milestone_id === null)
-  if (ungrouped.length > 0) {
-    milestoneGroups.push({ milestone: null, tasks: ungrouped })
-  }
-
-  return (
-    <PageLayout>
-      <PageHeader
-        icon={<LayoutList className="h-6 w-6" />}
-        title={data.projectName}
-        actions={
-          <div className="hidden sm:flex items-center gap-2">
-            <Button size="sm" variant="outline" onClick={() => navigate("/space")} className="gap-1.5">
-              <ArrowLeft className="h-4 w-4" />
-              Spaces
-            </Button>
-            <Button size="sm" variant="outline" className="gap-1.5">
-              <ListFilter className="h-4 w-4" />
-              Filter
-            </Button>
-            <Button size="sm" className="gap-1.5">
-              <Plus className="h-4 w-4" />
-              New Task
-            </Button>
-          </div>
-        }
-      />
-
-      <div className="space-y-6">
-        {tasks.length === 0 ? (
-          <div className="px-3 py-8 rounded-lg border border-dashed border-border/50 text-center">
-            <i className="text-sm text-muted-foreground">No tasks yet. Create one to get started.</i>
-          </div>
-        ) : (
-          milestoneGroups.map((group) => (
-            <MilestoneGroup
-              key={group.milestone?.id ?? "ungrouped"}
-              milestone={group.milestone}
-              tasks={group.tasks}
-              onToggleDone={toggleDone}
-              onToggleSubDone={toggleSubDone}
-            />
-          ))
-        )}
-      </div>
-
-      <div className="flex sm:hidden flex-col gap-2 pt-2">
-        <Button className="w-full gap-1.5">
-          <Plus className="h-4 w-4" /> New Task
-        </Button>
-        <Button variant="outline" className="w-full gap-1.5" onClick={() => navigate("/space")}>
-          <ArrowLeft className="h-4 w-4" /> Back to Spaces
-        </Button>
-      </div>
-    </PageLayout>
-  )
 }

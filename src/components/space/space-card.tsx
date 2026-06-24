@@ -21,7 +21,7 @@ export function SpaceCard({ space }: { space: Space }) {
             {open ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
           </button>
           <div className="text-primary w-6 flex justify-center">
-            {open ? <FolderOpen className="h-4 w-4" /> : <Folder className="h-4 w-4" />}
+            {open ? <FolderOpen className="size-4.5" /> : <Folder className="size-4.5" />}
           </div>
         </div>
         <span className="text-sm flex-1 truncate">{space.name}</span>
