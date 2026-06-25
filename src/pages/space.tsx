@@ -1,7 +1,12 @@
 import { Button } from "@/components/ui/button"
 import { PageLayout, PageHeader } from "@/components/layout/page-layout"
-import { Plus, ChevronDown, ListFilter, Folders } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Plus, ChevronDown, Funnel, Folders } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { SpaceCard } from "@/components/space/space-card"
 import { ProjectCard } from "@/components/space/project-card"
 import type { Space, Project } from "@/components/space/types"
@@ -13,7 +18,12 @@ const initialSpaces: Space[] = [
     projects: [
       { id: 11, name: "API Gateway", color: "#10b981", updatedAt: "2h ago" },
       { id: 12, name: "Auth Service", color: "#3b82f6", updatedAt: "5h ago" },
-      { id: 13, name: "Analytics Dashboard", color: "#f59e0b", updatedAt: "3d ago" },
+      {
+        id: 13,
+        name: "Analytics Dashboard",
+        color: "#f59e0b",
+        updatedAt: "3d ago",
+      },
     ],
   },
   {
@@ -21,7 +31,12 @@ const initialSpaces: Space[] = [
     name: "Staging",
     projects: [
       { id: 21, name: "Frontend App", color: "#8b5cf6", updatedAt: "1h ago" },
-      { id: 22, name: "Mobile Backend", color: "#ec4899", updatedAt: "Yesterday" },
+      {
+        id: 22,
+        name: "Mobile Backend",
+        color: "#ec4899",
+        updatedAt: "Yesterday",
+      },
     ],
   },
   {
@@ -43,25 +58,33 @@ export default function SpacePage() {
         icon={<Folders className="h-6 w-6" />}
         title="Spaces"
         actions={
-          <div className="hidden sm:flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <Button size="sm" variant="outline" className="gap-1.5">
-              <ListFilter className="h-4 w-4" />
+              <Funnel className="h-4 w-4" />
               Filter
             </Button>
             <div className="flex items-center">
-              <Button size="sm" variant="outline" className="rounded-r-none border-r-0 gap-1.5">
+              <Button
+                size="sm"
+                variant="outline"
+                className="gap-1.5 rounded-r-none border-r-0"
+              >
                 <Plus className="h-4 w-4" />
                 New Project
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <Button size="sm" variant="outline" className="rounded-l-none px-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="rounded-l-none px-2"
+                  >
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem>
-                    <Plus className="h-4 w-4 mr-2" />
+                    <Plus className="mr-2 h-4 w-4" />
                     New Space
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -78,15 +101,6 @@ export default function SpacePage() {
         {unspacedProjects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
-      </div>
-
-      <div className="flex sm:hidden flex-col gap-2 pt-2">
-        <Button className="w-full gap-1.5">
-          <Plus className="h-4 w-4" /> New Space
-        </Button>
-        <Button variant="outline" className="w-full gap-1.5">
-          <Plus className="h-4 w-4" /> New Project
-        </Button>
       </div>
     </PageLayout>
   )

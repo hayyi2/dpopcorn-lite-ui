@@ -4,6 +4,7 @@ import { Sun, Moon, User, Settings, LogOut, Shield } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 import { Button } from "@/components/ui/button"
 import { navItems } from "./nav-items"
+import { Logo } from "./logo"
 
 export function TopNavbar() {
   const { theme, setTheme } = useTheme()
@@ -13,7 +14,10 @@ export function TopNavbar() {
   // Close dropdown on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false)
       }
     }
@@ -22,21 +26,19 @@ export function TopNavbar() {
   }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b bg-background/85 backdrop-blur-md flex items-center justify-between px-4 md:px-6 select-none">
+    <header className="fixed top-0 right-0 left-0 z-50 flex h-16 items-center justify-between border-b bg-background/85 px-4 backdrop-blur-md select-none md:px-6">
       <div className="flex items-center gap-4 md:gap-6">
-        <span className="font-bold text-base md:text-lg tracking-tight text-primary flex items-center gap-1.5">
-          <span>Dpopcorn</span>
-        </span>
+        <Logo />
         {/* Navigation links - hidden on mobile (handled by bottom navbar) */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                `flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                   isActive
-                    ? "bg-accent text-accent-foreground"
+                    ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 }`
               }
@@ -57,8 +59,8 @@ export function TopNavbar() {
           title="Toggle Theme (or press D)"
           className="h-9 w-9 rounded-full"
         >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
           <span className="sr-only">Toggle theme</span>
         </Button>
 
@@ -66,48 +68,50 @@ export function TopNavbar() {
         <div className="relative" ref={dropdownRef}>
           <Button
             variant="ghost"
-            className="relative h-9 w-9 rounded-full p-0 overflow-hidden border bg-muted/50 hover:bg-muted"
+            className="relative h-9 w-9 overflow-hidden rounded-full border bg-muted/50 p-0 hover:bg-muted"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <div className="flex h-full w-full items-center justify-center font-bold text-xs bg-primary/10 text-primary uppercase">
+            <div className="flex h-full w-full items-center justify-center bg-primary/10 text-xs font-bold text-primary uppercase">
               jd
             </div>
             <span className="sr-only">User Menu</span>
           </Button>
 
           {isOpen && (
-            <div className="absolute right-0 mt-2 w-56 rounded-xl border bg-popover text-popover-foreground shadow-lg focus:outline-none z-50 animate-in fade-in-50 slide-in-from-top-1 duration-150">
-              <div className="p-3 border-b flex flex-col gap-0.5">
-                <p className="text-sm font-semibold leading-none">John Doe</p>
-                <p className="text-xs text-muted-foreground leading-none mt-1">john.doe@dpopcorn.dev</p>
+            <div className="absolute right-0 z-50 mt-2 w-56 animate-in rounded-xl border bg-popover text-popover-foreground shadow-lg duration-150 fade-in-50 slide-in-from-top-1 focus:outline-none">
+              <div className="flex flex-col gap-0.5 border-b p-3">
+                <p className="text-sm leading-none font-semibold">John Doe</p>
+                <p className="mt-1 text-xs leading-none text-muted-foreground">
+                  john.doe@dpopcorn.dev
+                </p>
               </div>
-              <div className="p-1.5 space-y-0.5">
+              <div className="space-y-0.5 p-1.5">
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm text-left hover:bg-muted transition-colors"
+                  className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors hover:bg-muted"
                 >
                   <User className="h-4 w-4 text-muted-foreground" />
                   <span>My Profile</span>
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm text-left hover:bg-muted transition-colors"
+                  className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors hover:bg-muted"
                 >
                   <Settings className="h-4 w-4 text-muted-foreground" />
                   <span>Settings</span>
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm text-left hover:bg-muted transition-colors"
+                  className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors hover:bg-muted"
                 >
                   <Shield className="h-4 w-4 text-muted-foreground" />
                   <span>Security</span>
                 </button>
               </div>
-              <div className="p-1.5 border-t">
+              <div className="border-t p-1.5">
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm text-left hover:bg-destructive/10 text-destructive transition-colors"
+                  className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm text-destructive transition-colors hover:bg-destructive/10"
                 >
                   <LogOut className="h-4 w-4" />
                   <span>Sign out</span>

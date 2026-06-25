@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { PageLayout, PageHeader } from "@/components/layout/page-layout"
-import { Plus, Timer } from "lucide-react"
+import { Funnel, Plus, Timer } from "lucide-react"
 import { DateGroup } from "@/components/timer/date-group"
 import { groupByDate } from "@/components/timer/utils"
 import type { TimerEntry } from "@/components/timer/types"
@@ -61,7 +61,9 @@ export default function TimerPage() {
   const [timers, setTimers] = useState<TimerEntry[]>(initialTimers)
 
   function toggleDone(id: number) {
-    setTimers((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)))
+    setTimers((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
+    )
   }
 
   const groups = groupByDate(timers)
@@ -72,16 +74,24 @@ export default function TimerPage() {
         icon={<Timer className="h-6 w-6" />}
         title="Timer"
         actions={
-          <Button size="sm" className="gap-1.5">
-            <Plus className="h-4 w-4" /> Add Manual
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button size="sm" variant="outline" className="gap-1.5">
+              <Funnel className="h-4 w-4" />
+              Filter
+            </Button>
+            <Button size="sm" className="gap-1.5">
+              <Plus className="h-4 w-4" /> Add Manual
+            </Button>
+          </div>
         }
       />
 
       <div className="space-y-6">
         {groups.length === 0 ? (
-          <div className="px-3 py-8 rounded-lg border border-dashed border-border/50 text-center">
-            <i className="text-sm text-muted-foreground">No timer entries yet. Add one to get started.</i>
+          <div className="rounded-lg border border-dashed border-border/50 px-3 py-8 text-center">
+            <i className="text-sm text-muted-foreground">
+              No timer entries yet. Add one to get started.
+            </i>
           </div>
         ) : (
           groups.map(([date, entries]) => (
@@ -93,13 +103,6 @@ export default function TimerPage() {
             />
           ))
         )}
-      </div>
-
-      {/* Mobile FAB */}
-      <div className="flex sm:hidden flex-col gap-2 pt-2">
-        <Button className="w-full gap-1.5">
-          <Plus className="h-4 w-4" /> Add Manual
-        </Button>
       </div>
     </PageLayout>
   )

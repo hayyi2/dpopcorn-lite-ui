@@ -7,7 +7,9 @@ interface PageLayoutProps {
 
 export function PageLayout({ children, className }: PageLayoutProps) {
   return (
-    <div className={`container mx-auto p-4 md:p-8 space-y-6 max-w-5xl ${className ?? ""}`}>
+    <div
+      className={`container mx-auto max-w-5xl space-y-6 p-4 md:p-8 ${className ?? ""}`}
+    >
       {children}
     </div>
   )
@@ -20,25 +22,28 @@ interface PageHeaderProps {
   actions?: ReactNode
 }
 
-export function PageHeader({ icon, title, subtitle, actions }: PageHeaderProps) {
+export function PageHeader({
+  icon,
+  title,
+  subtitle,
+  actions,
+}: PageHeaderProps) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
       <div className="flex items-center gap-3">
-        <div className="p-2 bg-primary/10 text-primary rounded-lg shrink-0">
+        <div className="shrink-0 rounded-lg bg-primary/10 p-2 text-primary">
           {icon}
         </div>
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{title}</h1>
+          <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
+            {title}
+          </h1>
           {subtitle && (
-            <p className="text-muted-foreground text-sm">{subtitle}</p>
+            <p className="text-sm text-muted-foreground">{subtitle}</p>
           )}
         </div>
       </div>
-      {actions && (
-        <div className="flex gap-2">
-          {actions}
-        </div>
-      )}
+      {actions && <div className="flex gap-2">{actions}</div>}
     </div>
   )
 }

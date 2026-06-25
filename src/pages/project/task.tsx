@@ -1,7 +1,5 @@
 import { useState } from "react"
 import { useOutletContext } from "react-router"
-import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
 import { MilestoneGroup } from "@/components/task/milestone-group"
 import type { Milestone, Task } from "@/components/task/types"
 import type { ProjectOutletContext } from "@/components/layout/project-layout"
@@ -32,7 +30,7 @@ export default function TaskPage() {
     )
   }
 
-  const milestoneGroups: { milestone: Milestone|null; tasks: Task[]; }[] = [
+  const milestoneGroups: { milestone: Milestone | null; tasks: Task[] }[] = [
     ...project.milestones.map((m) => ({
       milestone: m,
       tasks: tasks.filter((t) => t.milestone_id === m.id),
@@ -47,8 +45,10 @@ export default function TaskPage() {
   return (
     <>
       {tasks.length === 0 ? (
-        <div className="px-3 py-8 rounded-lg border border-dashed border-border/50 text-center">
-          <i className="text-sm text-muted-foreground">No tasks yet. Create one to get started.</i>
+        <div className="rounded-lg border border-dashed border-border/50 px-3 py-8 text-center">
+          <i className="text-sm text-muted-foreground">
+            No tasks yet. Create one to get started.
+          </i>
         </div>
       ) : (
         <div className="space-y-6">
@@ -63,13 +63,6 @@ export default function TaskPage() {
           ))}
         </div>
       )}
-
-      {/* Mobile FAB */}
-      <div className="flex sm:hidden flex-col gap-2 pt-2">
-        <Button className="w-full gap-1.5">
-          <Plus className="h-4 w-4" /> New Task
-        </Button>
-      </div>
     </>
   )
 }

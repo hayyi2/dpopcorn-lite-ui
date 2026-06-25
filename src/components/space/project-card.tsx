@@ -5,24 +5,26 @@ import { SquareRoundedIcon } from "./square-rounded-icon"
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="flex items-center gap-2 px-3 py-2 rounded-lg border bg-card hover:bg-muted/40 group transition-colors shadow-sm">
+    <div className="group flex items-center gap-2 rounded-lg border bg-card px-3 py-2 shadow-sm transition-colors hover:bg-muted/40">
       <div className="flex items-center">
-        <button className="h-5 w-4 flex items-center justify-center cursor-grab active:cursor-grabbing text-muted-foreground/50 hover:text-muted-foreground transition-all -ml-1 shrink-0">
+        <button className="-ml-1 flex h-5 w-4 shrink-0 cursor-grab items-center justify-center text-muted-foreground/50 transition-all hover:text-muted-foreground active:cursor-grabbing">
           <GripVertical className="h-3.5 w-3.5" />
         </button>
-        <div className="h-6 w-6 flex items-center justify-center">
+        <div className="flex h-6 w-6 items-center justify-center">
           <SquareRoundedIcon color={project.color} className="size-4.5" />
         </div>
       </div>
       <NavLink
         to={`/space/${project.id}/tasks`}
-        className="text-sm flex-1 truncate text-left hover:cursor-pointer"
+        className="flex-1 truncate text-left text-sm hover:cursor-pointer"
       >
         <span>{project.name}</span>
       </NavLink>
-      <div className="flex items-center gap-2 shrink-0">
-        <span className="text-xs text-muted-foreground hidden sm:block">{project.updatedAt}</span>
-        <button className="h-6 w-6 rounded-md flex items-center justify-center hover:bg-muted transition-all">
+      <div className="flex shrink-0 items-center gap-2">
+        <span className="hidden text-xs text-muted-foreground sm:block">
+          {project.updatedAt}
+        </span>
+        <button className="flex h-6 w-6 items-center justify-center rounded-md transition-all hover:bg-muted">
           <MoreHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
         </button>
       </div>

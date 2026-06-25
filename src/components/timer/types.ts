@@ -1,4 +1,9 @@
-export type TimerType = "flow_session" | "pomodoro" | "flowtime" | "quick_timer" | null
+export type TimerType =
+  | "flow_session"
+  | "pomodoro"
+  | "flowtime"
+  | "quick_timer"
+  | null
 
 export type TimerEntry = {
   id: number

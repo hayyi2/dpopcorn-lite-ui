@@ -14,7 +14,11 @@ export function formatDate(date: string): string {
   const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10)
   if (date === today) return "Today"
   if (date === yesterday) return "Yesterday"
-  return new Date(date).toLocaleDateString([], { weekday: "long", month: "short", day: "numeric" })
+  return new Date(date).toLocaleDateString([], {
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+  })
 }
 
 export function groupByDate(entries: TimerEntry[]): [string, TimerEntry[]][] {

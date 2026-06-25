@@ -1,15 +1,23 @@
 import { Outlet, useParams, useNavigate } from "react-router"
 import { useLocation } from "react-router"
-import { LayoutDashboard, ListTodo, Timer, ArrowLeft, ListFilter, Plus, FolderX } from "lucide-react"
+import {
+  ListTodo,
+  Timer,
+  ArrowLeft,
+  Plus,
+  FolderX,
+  Info,
+  Funnel,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { SquareRoundedIcon } from "@/components/space/square-rounded-icon"
 import { mockProjects } from "@/lib/mock-projects"
 import type { ProjectData } from "@/lib/mock-projects"
-import { PageHeader, PageLayout } from './page-layout'
+import { PageHeader, PageLayout } from "./page-layout"
 
 const projectTabs = [
-  { to: "", label: "Detail", icon: LayoutDashboard },
+  { to: "", label: "Detail", icon: Info },
   { to: "tasks", label: "Tasks", icon: ListTodo },
   { to: "timer", label: "Timer", icon: Timer },
 ]
@@ -28,13 +36,18 @@ export default function ProjectLayout() {
   if (!project) {
     return (
       <PageLayout>
-        <div className="flex flex-col items-center justify-center flex-1 gap-3 text-center py-20">
+        <div className="flex flex-1 flex-col items-center justify-center gap-3 py-20 text-center">
           <FolderX className="size-12 text-muted-foreground" />
           <h2 className="text-lg font-semibold">Project not found</h2>
           <p className="text-sm text-muted-foreground">
             The project you're looking for doesn't exist or has been removed.
           </p>
-          <Button size="sm" variant="outline" onClick={() => navigate("/space")} className="gap-1.5">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => navigate("/space")}
+            className="gap-1.5"
+          >
             <ArrowLeft className="h-4 w-4" />
             Back to Space
           </Button>
@@ -43,7 +56,8 @@ export default function ProjectLayout() {
     )
   }
 
-  const activeTab = projectTabs.find((t) => pathname.endsWith(`/${t.to}`))?.to ?? "detail"
+  const activeTab =
+    projectTabs.find((t) => pathname.endsWith(`/${t.to}`))?.to ?? "detail"
   const isTasksTab = activeTab === "tasks"
 
   return (
@@ -54,8 +68,8 @@ export default function ProjectLayout() {
       />
 
       {/* Sub navigation */}
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-1 min-w-0">
+      <div className="items-center justify-between gap-2 space-y-2 sm:flex sm:space-y-0">
+        <div className="flex min-w-0 items-center gap-1">
           <Tabs value={activeTab}>
             <TabsList>
               <TabsTrigger
@@ -82,9 +96,9 @@ export default function ProjectLayout() {
 
         {/* Contextual actions — hanya di Tasks tab */}
         {isTasksTab && (
-          <div className="hidden sm:flex items-center gap-2 shrink-0">
+          <div className="flex shrink-0 items-center gap-2">
             <Button size="sm" variant="outline" className="gap-1.5">
-              <ListFilter className="h-4 w-4" />
+              <Funnel className="h-4 w-4" />
               Filter
             </Button>
             <Button size="sm" className="gap-1.5">

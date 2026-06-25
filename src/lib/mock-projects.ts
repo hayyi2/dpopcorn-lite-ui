@@ -25,9 +25,30 @@ export const mockProjects: Record<string, ProjectData> = {
         done: false,
         milestone_id: 1,
         subtasks: [
-          { id: 11, title: "Research libraries", deadline: null, estimasi_durasi: 30, timer_logged: 30, done: true },
-          { id: 12, title: "Implement token bucket", deadline: null, estimasi_durasi: 60, timer_logged: 15, done: false },
-          { id: 13, title: "Write unit tests", deadline: null, estimasi_durasi: 30, timer_logged: 0, done: false },
+          {
+            id: 11,
+            title: "Research libraries",
+            deadline: null,
+            estimasi_durasi: 30,
+            timer_logged: 30,
+            done: true,
+          },
+          {
+            id: 12,
+            title: "Implement token bucket",
+            deadline: null,
+            estimasi_durasi: 60,
+            timer_logged: 15,
+            done: false,
+          },
+          {
+            id: 13,
+            title: "Write unit tests",
+            deadline: null,
+            estimasi_durasi: 30,
+            timer_logged: 0,
+            done: false,
+          },
         ],
       },
       {
@@ -49,9 +70,30 @@ export const mockProjects: Record<string, ProjectData> = {
         done: false,
         milestone_id: 2,
         subtasks: [
-          { id: 31, title: "Auth endpoints", deadline: null, estimasi_durasi: 20, timer_logged: 10, done: false },
-          { id: 32, title: "Data endpoints", deadline: null, estimasi_durasi: 20, timer_logged: 0, done: false },
-          { id: 33, title: "Admin endpoints", deadline: null, estimasi_durasi: 20, timer_logged: 0, done: false },
+          {
+            id: 31,
+            title: "Auth endpoints",
+            deadline: null,
+            estimasi_durasi: 20,
+            timer_logged: 10,
+            done: false,
+          },
+          {
+            id: 32,
+            title: "Data endpoints",
+            deadline: null,
+            estimasi_durasi: 20,
+            timer_logged: 0,
+            done: false,
+          },
+          {
+            id: 33,
+            title: "Admin endpoints",
+            deadline: null,
+            estimasi_durasi: 20,
+            timer_logged: 0,
+            done: false,
+          },
         ],
       },
     ],
@@ -59,9 +101,7 @@ export const mockProjects: Record<string, ProjectData> = {
   "12": {
     projectName: "Auth Service",
     color: "#3b82f6",
-    milestones: [
-      { id: 1, title: "MVP", deadline: "2026-06-28" },
-    ],
+    milestones: [{ id: 1, title: "MVP", deadline: "2026-06-28" }],
     tasks: [
       {
         id: 4,
@@ -72,9 +112,30 @@ export const mockProjects: Record<string, ProjectData> = {
         done: false,
         milestone_id: 1,
         subtasks: [
-          { id: 41, title: "Design token schema", deadline: null, estimasi_durasi: 30, timer_logged: 30, done: true },
-          { id: 42, title: "Implement rotation logic", deadline: null, estimasi_durasi: 90, timer_logged: 30, done: false },
-          { id: 43, title: "Handle revocation", deadline: null, estimasi_durasi: 60, timer_logged: 0, done: false },
+          {
+            id: 41,
+            title: "Design token schema",
+            deadline: null,
+            estimasi_durasi: 30,
+            timer_logged: 30,
+            done: true,
+          },
+          {
+            id: 42,
+            title: "Implement rotation logic",
+            deadline: null,
+            estimasi_durasi: 90,
+            timer_logged: 30,
+            done: false,
+          },
+          {
+            id: 43,
+            title: "Handle revocation",
+            deadline: null,
+            estimasi_durasi: 60,
+            timer_logged: 0,
+            done: false,
+          },
         ],
       },
       {
@@ -92,9 +153,7 @@ export const mockProjects: Record<string, ProjectData> = {
   "21": {
     projectName: "Frontend App",
     color: "#8b5cf6",
-    milestones: [
-      { id: 1, title: "React 19 Migration", deadline: null },
-    ],
+    milestones: [{ id: 1, title: "React 19 Migration", deadline: null }],
     tasks: [
       {
         id: 6,
@@ -105,9 +164,30 @@ export const mockProjects: Record<string, ProjectData> = {
         done: false,
         milestone_id: 1,
         subtasks: [
-          { id: 61, title: "Update dependencies", deadline: null, estimasi_durasi: 30, timer_logged: 30, done: true },
-          { id: 62, title: "Fix breaking changes", deadline: null, estimasi_durasi: 180, timer_logged: 90, done: false },
-          { id: 63, title: "Run regression tests", deadline: null, estimasi_durasi: 90, timer_logged: 0, done: false },
+          {
+            id: 61,
+            title: "Update dependencies",
+            deadline: null,
+            estimasi_durasi: 30,
+            timer_logged: 30,
+            done: true,
+          },
+          {
+            id: 62,
+            title: "Fix breaking changes",
+            deadline: null,
+            estimasi_durasi: 180,
+            timer_logged: 90,
+            done: false,
+          },
+          {
+            id: 63,
+            title: "Run regression tests",
+            deadline: null,
+            estimasi_durasi: 90,
+            timer_logged: 0,
+            done: false,
+          },
         ],
       },
     ],
