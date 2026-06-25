@@ -60,7 +60,7 @@ export function TimerRow({
         </div>
 
         {/* row 2: task title */}
-        <div className='flex items-center gap-1.5 mb-1'>
+        <div className='flex items-center gap-1.5'>
           {/* toggle done */}
           <button
             onClick={() => onToggleDone(entry.id)}
@@ -81,7 +81,7 @@ export function TimerRow({
 
         {/* row 3: note */}
         {entry.note && (
-          <div className="flex items-center pl-1 gap-1 text-xs text-muted-foreground/60">
+          <div className="flex items-center pl-1 gap-1 text-xs text-muted-foreground/60 mt-1">
             <StickyNotes className="h-3.5 w-3.5 shrink-0" />
             <span className="truncate">{entry.note}</span>
           </div>

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ChevronDown, ChevronRight, MoreHorizontal, Calendar, Timer } from "lucide-react"
+import { ChevronDown, ChevronRight, Calendar, Timer } from "lucide-react"
 import { TimerRow } from "./timer-row"
 import { formatDate, formatDuration } from "./utils"
 import type { TimerEntry } from "./types"
@@ -41,10 +41,6 @@ export function DateGroup({
               {entries.length}
             </span>
           </span>
-        </button>
-
-        <button className="h-6 w-6 rounded-md flex items-center justify-center hover:bg-muted transition-all shrink-0">
-          <MoreHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
         </button>
       </div>
 
