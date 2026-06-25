@@ -1,6 +1,7 @@
 import { Outlet } from "react-router"
 import { TopNavbar } from "./top-navbar"
 import { BottomNavbar } from "./bottom-navbar"
+import { TimerWidget } from "@/components/timer-widget/timer-widget"
 
 export default function AppLayout() {
   return (
@@ -9,12 +10,15 @@ export default function AppLayout() {
       <TopNavbar />
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto pt-20 pb-20 md:pb-6">
+      <main className="flex-1 overflow-y-auto pt-20 pb-28 md:pb-6">
         <Outlet />
       </main>
 
       {/* Mobile Navigation (Bottom Navbar, hidden on Desktop) */}
       <BottomNavbar />
+
+      {/* Global Timer Widget */}
+      <TimerWidget />
     </div>
   )
 }
