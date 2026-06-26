@@ -19,17 +19,17 @@ export function HomeTaskRow({
 }) {
   return (
     <div
-      className={`group flex items-center gap-1 rounded-lg border bg-card px-3 py-2 shadow-sm transition-colors hover:bg-muted/40 ${
-        task.done ? "opacity-60" : ""
+      className={`group flex items-center gap-1 rounded-lg border px-3 py-2 shadow-sm transition-colors hover:bg-muted/40 ${
+        task.done ? "bg-muted/60" : "bg-card"
       }`}
     >
       {/* drag handle */}
-      <button className="-mx-1 flex h-5 w-4 shrink-0 cursor-grab items-center justify-center text-muted-foreground/40 transition-colors hover:text-muted-foreground active:cursor-grabbing">
+      <button className={`-mx-1 flex h-5 w-4 shrink-0 cursor-grab items-center justify-center text-muted-foreground/40 transition-colors hover:text-muted-foreground active:cursor-grabbing ${task.done ? "opacity-40" : ""}`}>
         <GripVertical className="h-3.5 w-3.5" />
       </button>
 
       {/* left: 2-line content */}
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
+      <div className={`flex min-w-0 flex-1 flex-col gap-1 ${task.done ? "opacity-50" : ""}`}>
         {/* row 1: project / milestone breadcrumb */}
         <div className="flex items-center gap-1 pl-1 text-xs text-muted-foreground/70">
           <SquareRoundedIcon
@@ -70,7 +70,7 @@ export function HomeTaskRow({
       </div>
 
       {/* right: meta + actions */}
-      <div className="flex shrink-0 items-center gap-1.5">
+      <div className={`flex shrink-0 items-center gap-1.5 ${task.done ? "opacity-50" : ""}`}>
         {task.deadline && (
           <span className="mr-1.5 hidden items-center gap-0.5 text-xs text-muted-foreground sm:flex">
             <Calendar className="h-3.5 w-3.5 shrink-0" />
