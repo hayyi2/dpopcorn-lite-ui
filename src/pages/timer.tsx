@@ -10,7 +10,7 @@ const initialTimers: TimerEntry[] = [
   {
     id: 1,
     project: "dpopcorn-ui",
-    task: "Implement Timer Page",
+    task: "Implement Timer Page Implement Timer Page",
     parentTask: "Frontend Tasks",
     running: true,
     startedAt: "09:15",

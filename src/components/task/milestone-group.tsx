@@ -1,14 +1,14 @@
-import { useState } from "react"
 import {
-  ChevronDown,
-  ChevronRight,
   Milestone as MilestoneIcon,
   MoreHorizontal,
   Calendar,
   ListTodo,
 } from "lucide-react"
 import type { Milestone, Task } from "./types"
-import { TaskRow } from "./task-row"
+import { TaskCard } from "./task-card"
+import { CollapsibleGroup } from "@/components/ui/collapsible-group"
+import { IconButton } from "@/components/ui/icon-button"
+import { StatLabel } from "@/components/ui/stat-label"
 
 export function MilestoneGroup({
   milestone,
@@ -21,64 +21,44 @@ export function MilestoneGroup({
   onToggleDone: (id: number) => void
   onToggleSubDone: (taskId: number, subId: number) => void
 }) {
-  const [open, setOpen] = useState(true)
   const done = tasks.filter((t) => t.done).length
 
+  const cards = tasks.map((task) => (
+    <TaskCard
+      key={task.id}
+      task={task}
+      onToggleDone={onToggleDone}
+      onToggleSubDone={onToggleSubDone}
+    />
+  ))
+
+  if (milestone === null) {
+    return <div className="space-y-2">{cards}</div>
+  }
+
   return (
-    <div className="space-y-1.5">
-      {milestone !== null && (
-        <div className="flex items-center gap-1">
-          {/* collapse + label */}
-          <button
-            onClick={() => setOpen((v) => !v)}
-            className="flex min-w-0 flex-1 items-center gap-2 rounded-md px-2 py-1 transition-colors hover:bg-muted/50"
-          >
-            <span className="shrink-0 text-muted-foreground/50 transition-colors hover:text-muted-foreground">
-              {open ? (
-                <ChevronDown className="h-3.5 w-3.5" />
-              ) : (
-                <ChevronRight className="h-3.5 w-3.5" />
-              )}
-            </span>
-            <MilestoneIcon className="h-3.5 w-4 shrink-0 text-primary/70" />
-            <span className="truncate text-sm font-medium text-foreground/80">
-              {milestone.title}
-            </span>
-            <span className="ml-auto flex shrink-0 items-center gap-2 pr-1">
-              {milestone.deadline && (
-                <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
-                  <Calendar className="h-3.5 w-3.5 shrink-0" />
-                  {milestone.deadline}
-                </span>
-              )}
-              <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
-                <ListTodo className="h-3.5 w-3.5 shrink-0" />
-                {done}
-                <span className="text-muted-foreground/40">/</span>
-                {tasks.length}
-              </span>
-            </span>
-          </button>
-
-          {/* more actions */}
-          <button className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md transition-all hover:bg-muted">
-            <MoreHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
-          </button>
-        </div>
-      )}
-
-      {open && (
-        <div className="space-y-1.5">
-          {tasks.map((task) => (
-            <TaskRow
-              key={task.id}
-              task={task}
-              onToggleDone={onToggleDone}
-              onToggleSubDone={onToggleSubDone}
-            />
-          ))}
-        </div>
-      )}
-    </div>
+    <CollapsibleGroup
+      icon={<MilestoneIcon className="size-4 text-muted-foreground" />}
+      label={milestone.title}
+      rightSlot={
+        <>
+          {milestone.deadline && (
+            <StatLabel icon={<Calendar />}>{milestone.deadline}</StatLabel>
+          )}
+          <StatLabel icon={<ListTodo />}>
+            {done}
+            <span className="text-muted-foreground/40">/</span>
+            {tasks.length}
+          </StatLabel>
+        </>
+      }
+      actions={
+        <IconButton>
+          <MoreHorizontal />
+        </IconButton>
+      }
+    >
+      {cards}
+    </CollapsibleGroup>
   )
 }

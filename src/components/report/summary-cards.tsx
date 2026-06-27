@@ -27,7 +27,7 @@ export function SummaryCards({
           <p className="text-3xl font-bold tracking-tight">
             {fmtDuration(totalMinutes)}
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs text-muted-foreground">
             Rata-rata{" "}
             <span className="font-medium text-foreground">
               {fmtDuration(avgMinutes)}
@@ -49,7 +49,7 @@ export function SummaryCards({
               / {totalProgress}
             </span>
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs text-muted-foreground">
             Selesai / in progress ·{" "}
             <span className="font-medium text-foreground">
               {totalProgress - totalCompleted}

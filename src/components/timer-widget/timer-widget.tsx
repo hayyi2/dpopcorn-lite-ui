@@ -2,9 +2,11 @@ import { useState } from "react"
 import { Square, Timer, ChevronUp, ChevronDown } from "lucide-react"
 import { useTimer } from "@/contexts/timer-context"
 import { cn } from "@/lib/utils"
-import { formatElapsed } from "./format-elapsed"
+import { formatElapsed } from "@/lib/format-elapsed"
 import { PingDot } from "./ping-dot"
 import { ExpandedContent } from "./expanded-content"
+import { Card, CardAction, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 
 export function TimerWidget() {
   const { isRunning, activeTimer, elapsed, stopTimer } = useTimer()
@@ -20,66 +22,71 @@ export function TimerWidget() {
         />
       )}
 
-      <div
+      <Card
         className={cn(
-          // base
-          "fixed z-50 flex flex-col overflow-hidden border bg-background/95 backdrop-blur-md transition-all duration-200",
-          // mobile: full-width bar above bottom navbar, no rounding
-          "right-0 bottom-16 left-0 border-t md:border",
-          // desktop: floating pill bottom-right, rounded
-          "md:right-4 md:bottom-4 md:left-auto md:w-72 md:rounded-2xl md:shadow-xl"
+          "fixed z-50 gap-0 py-0",
+          // mobile
+          "right-2 bottom-18 left-2",
+          // desktop
+          "md:right-4 md:bottom-4 md:left-auto md:w-72"
         )}
       >
         {expanded && (
-          <div className="max-h-[55vh] overflow-y-auto md:max-h-none">
-            <ExpandedContent />
-          </div>
+          <CardContent className="overflow-y-auto p-2 sm:p-3 md:max-h-[60vh]">
+            <ExpandedContent onMinimize={() => setExpanded(false)} />
+          </CardContent>
         )}
-
-        {/* bar */}
-        <div className="flex items-center gap-2 p-3">
-          <button
-            onClick={() => setExpanded((e) => !e)}
-            className={cn(
-              "flex flex-1 items-center gap-2 overflow-hidden rounded-xl px-3 py-2 transition-colors",
-              isRunning ? "bg-primary/10" : "bg-muted/50 hover:bg-muted"
-            )}
-          >
-            {isRunning && activeTimer ? (
-              <>
-                <PingDot color={activeTimer.projectColor} />
-                <span className="font-mono text-sm font-semibold text-primary tabular-nums">
+        {!(isRunning && expanded) && (
+          <CardAction className="flex w-full items-center p-0.5">
+            {isRunning && activeTimer && (
+              <Button
+                onClick={stopTimer}
+                variant="secondary"
+                className="group bg-transparent px-2 text-muted-foreground hover:bg-muted"
+              >
+                <div>
+                  <div className="block w-4 px-1 group-hover:hidden">
+                    <PingDot />
+                  </div>
+                  <Square className="hidden size-4 group-hover:block" />
+                </div>
+                <span className="text-sm tabular-nums">
                   {formatElapsed(elapsed)}
                 </span>
-                <span className="truncate text-xs text-primary/70">
-                  · {activeTimer.taskTitle}
-                </span>
-              </>
-            ) : (
-              <>
-                <Timer className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">Timer</span>
-              </>
+              </Button>
             )}
-            <span className="ml-auto">
-              {expanded ? (
-                <ChevronDown className="h-4 w-4 text-muted-foreground" />
-              ) : (
-                <ChevronUp className="h-4 w-4 text-muted-foreground" />
-              )}
-            </span>
-          </button>
-
-          {isRunning && (
-            <button
-              onClick={stopTimer}
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-destructive/10 text-destructive transition-colors hover:bg-destructive/20"
-            >
-              <Square className="h-4 w-4 fill-current" />
-            </button>
-          )}
-        </div>
-      </div>
+            <div className="min-w-0 flex-1">
+              <Button
+                onClick={() => setExpanded((e) => !e)}
+                variant="secondary"
+                className="w-full bg-transparent hover:bg-muted"
+              >
+                {isRunning && activeTimer ? (
+                  <>
+                    <span className="truncate text-sm">
+                      {activeTimer.taskTitle}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <Timer className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">
+                      Start Timer
+                    </span>
+                  </>
+                )}
+                <span className="ml-auto shrink-0">
+                  {expanded ? (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </span>
+              </Button>
+            </div>
+          </CardAction>
+        )}
+      </Card>
     </>
   )
 }

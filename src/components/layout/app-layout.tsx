@@ -10,7 +10,7 @@ export default function AppLayout() {
       <TopNavbar />
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto pt-20 pb-28 md:pb-6">
+      <main className="flex-1 overflow-y-auto pt-20 pb-32 md:pb-10">
         <Outlet />
       </main>
 

@@ -44,7 +44,9 @@ export function DailyTable({
             <TableRow key={row.day}>
               <TableCell className="px-5 py-3.5">
                 <span className="font-medium">{row.day}</span>
-                <span className="ml-1.5 text-muted-foreground">{row.date}</span>
+                <span className="ml-1.5 text-xs text-muted-foreground">
+                  {row.date}
+                </span>
               </TableCell>
               <TableCell className="px-5 py-3.5">
                 <div className="h-2 overflow-hidden rounded-full bg-muted">
@@ -56,17 +58,17 @@ export function DailyTable({
                   )}
                 </div>
               </TableCell>
-              <TableCell className="px-5 py-3.5 text-right tabular-nums">
+              <TableCell className="px-5 py-3.5 text-right text-xs tabular-nums">
                 {fmtDuration(row.totalMinutes)}
               </TableCell>
-              <TableCell className="px-5 py-3.5 text-right tabular-nums">
+              <TableCell className="px-5 py-3.5 text-right text-xs tabular-nums">
                 {row.completed > 0 ? (
                   <span>{row.completed}</span>
                 ) : (
                   <span className="text-muted-foreground">—</span>
                 )}
               </TableCell>
-              <TableCell className="px-5 py-3.5 text-right tabular-nums">
+              <TableCell className="px-5 py-3.5 text-right text-xs tabular-nums">
                 {row.inProgress > 0 ? (
                   <span>{row.inProgress}</span>
                 ) : (
@@ -81,13 +83,13 @@ export function DailyTable({
         <TableRow>
           <TableCell className="px-5 py-3 font-semibold">Total</TableCell>
           <TableCell className="px-5 py-3" />
-          <TableCell className="px-5 py-3 text-right tabular-nums">
+          <TableCell className="px-5 py-3 text-right text-xs tabular-nums">
             {fmtDuration(totalMinutes)}
           </TableCell>
-          <TableCell className="px-5 py-3 text-right tabular-nums">
+          <TableCell className="px-5 py-3 text-right text-xs tabular-nums">
             {totalCompleted}
           </TableCell>
-          <TableCell className="px-5 py-3 text-right tabular-nums">
+          <TableCell className="px-5 py-3 text-right text-xs tabular-nums">
             {totalProgress}
           </TableCell>
         </TableRow>

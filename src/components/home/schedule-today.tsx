@@ -1,5 +1,5 @@
 import { CalendarClock } from "lucide-react"
-import { SectionGroup } from "./section-group"
+import { CollapsibleGroup } from "@/components/ui/collapsible-group"
 import { HomeTaskRow } from "./home-task-row"
 import type { HomeTask } from "./types"
 
@@ -11,15 +11,14 @@ export function ScheduleToday({
   onToggleDone: (id: number) => void
 }) {
   return (
-    <SectionGroup
-      icon={<CalendarClock className="h-3.5 w-3.5" />}
+    <CollapsibleGroup
+      icon={<CalendarClock className="h-4 w-4 text-muted-foreground" />}
       label="Schedule Today"
-      count={entries.length}
       defaultOpen
     >
       {entries.map((entry) => (
         <HomeTaskRow key={entry.id} task={entry} onToggleDone={onToggleDone} />
       ))}
-    </SectionGroup>
+    </CollapsibleGroup>
   )
 }

@@ -11,7 +11,9 @@ export function formatDuration(seconds: number): string {
 
 export function formatDate(date: string): string {
   const today = new Date().toISOString().slice(0, 10)
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10)
+  const d = new Date()
+  d.setDate(d.getDate() - 1)
+  const yesterday = d.toISOString().slice(0, 10)
   if (date === today) return "Today"
   if (date === yesterday) return "Yesterday"
   return new Date(date).toLocaleDateString([], {

@@ -5,9 +5,11 @@ import {
   useEffect,
   useCallback,
   useRef,
+  useMemo,
   type ReactNode,
 } from "react"
 import { mockProjects } from "@/lib/mock-projects"
+import type { TimerEntry } from "@/components/timer/types"
 
 export type TimerTask = {
   taskId: number
@@ -31,6 +33,8 @@ type TimerContextValue = {
   setSearchQuery: (q: string) => void
   searchResults: SearchResult[]
   recentTasks: SearchResult[]
+  recentEntries: TimerEntry[]
+  toggleEntryDone: (id: number) => void
 }
 
 export type SearchResult = {
@@ -49,15 +53,27 @@ export function TimerProvider({ children }: { children: ReactNode }) {
   const [elapsed, setElapsed] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
-  const [note, setNote] = useState("")
+  const [note, setNoteState] = useState("")
   const [recentTasks, setRecentTasks] = useState<SearchResult[]>([])
+  const [recentEntries, setRecentEntries] = useState<TimerEntry[]>([])
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const activeTimerRef = useRef<TimerTask | null>(null)
+  const elapsedRef = useRef(0)
+  const noteRef = useRef("")
+
+  function setNote(n: string) {
+    noteRef.current = n
+    setNoteState(n)
+  }
 
   // Tick
   useEffect(() => {
     if (isRunning && activeTimer) {
+      activeTimerRef.current = activeTimer
       intervalRef.current = setInterval(() => {
-        setElapsed(Math.floor((Date.now() - activeTimer.startedAt) / 1000))
+        const s = Math.floor((Date.now() - activeTimer.startedAt) / 1000)
+        elapsedRef.current = s
+        setElapsed(s)
       }, 1000)
     } else {
       if (intervalRef.current) clearInterval(intervalRef.current)
@@ -88,14 +104,36 @@ export function TimerProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const stopTimer = useCallback(() => {
+    const t = activeTimerRef.current
+    const dur = elapsedRef.current
+    if (t) {
+      const entry: TimerEntry = {
+        id: Date.now(),
+        project: t.projectName,
+        task: t.taskTitle,
+        parentTask: t.parentTitle,
+        running: false,
+        startedAt: new Date(t.startedAt).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        duration: dur,
+        done: false,
+        note: noteRef.current || undefined,
+        date: new Date(t.startedAt).toISOString().slice(0, 10),
+        timer_type: null,
+      }
+      setRecentEntries((prev) => [entry, ...prev].slice(0, 5))
+    }
     setIsRunning(false)
     setActiveTimer(null)
     setElapsed(0)
     setNote("")
+    noteRef.current = ""
   }, [])
 
   // Search across all projects & tasks
-  const searchResults: SearchResult[] = (() => {
+  const searchResults = useMemo<SearchResult[]>(() => {
     const q = searchQuery.trim().toLowerCase()
     if (!q) return []
     const results: SearchResult[] = []
@@ -134,7 +172,13 @@ export function TimerProvider({ children }: { children: ReactNode }) {
       }
     }
     return results.slice(0, 8)
-  })()
+  }, [searchQuery])
+
+  const toggleEntryDone = useCallback((id: number) => {
+    setRecentEntries((prev) =>
+      prev.map((e) => (e.id === id ? { ...e, done: !e.done } : e))
+    )
+  }, [])
 
   return (
     <TimerContext.Provider
@@ -150,6 +194,8 @@ export function TimerProvider({ children }: { children: ReactNode }) {
         setSearchQuery,
         searchResults,
         recentTasks,
+        recentEntries,
+        toggleEntryDone,
       }}
     >
       {children}

@@ -11,36 +11,47 @@ import {
 } from "@/components/home/mock-data"
 import type { HomeTask } from "@/components/home/types"
 
+type DeadlineSection = "overdue" | "today" | "upcoming"
+type DeadlineTask = HomeTask & { section: DeadlineSection }
+
+const toDeadline = (
+  tasks: HomeTask[],
+  section: DeadlineSection
+): DeadlineTask[] => tasks.map((t) => ({ ...t, section }))
+
+const fromSection = (tasks: DeadlineTask[], section: DeadlineSection) =>
+  tasks.filter((t) => t.section === section)
+
 export default function HomePage() {
   const [scheduled, setScheduled] = useState<HomeTask[]>(scheduledEntries)
-  const [overdue, setOverdue] = useState<HomeTask[]>(overdueTasks)
-  const [dueToday, setDueToday] = useState<HomeTask[]>(dueTodayTasks)
-  const [upcoming, setUpcoming] = useState<HomeTask[]>(upcomingTasks)
+  const [deadlines, setDeadlines] = useState<DeadlineTask[]>([
+    ...toDeadline(overdueTasks, "overdue"),
+    ...toDeadline(dueTodayTasks, "today"),
+    ...toDeadline(upcomingTasks, "upcoming"),
+  ])
 
-  function toggleTimerDone(id: number) {
+  function toggleScheduled(id: number) {
     setScheduled((prev) =>
       prev.map((e) => (e.id === id ? { ...e, done: !e.done } : e))
     )
   }
 
-  function toggleTaskDone(id: number) {
-    const toggle = (list: HomeTask[]) =>
-      list.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
-    setOverdue(toggle)
-    setDueToday(toggle)
-    setUpcoming(toggle)
+  function toggleDeadline(id: number) {
+    setDeadlines((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
+    )
   }
 
   return (
     <PageLayout>
       <PageHeader icon={<Home className="h-6 w-6" />} title="Home" />
       <div className="space-y-6">
-        <ScheduleToday entries={scheduled} onToggleDone={toggleTimerDone} />
+        <ScheduleToday entries={scheduled} onToggleDone={toggleScheduled} />
         <DeadlinePriorities
-          overdue={overdue}
-          dueToday={dueToday}
-          upcoming={upcoming}
-          onToggleDone={toggleTaskDone}
+          overdue={fromSection(deadlines, "overdue")}
+          dueToday={fromSection(deadlines, "today")}
+          upcoming={fromSection(deadlines, "upcoming")}
+          onToggleDone={toggleDeadline}
         />
       </div>
     </PageLayout>

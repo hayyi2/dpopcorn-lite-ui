@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { PageLayout, PageHeader } from "@/components/layout/page-layout"
 import { Plus, ChevronDown, Funnel, Folders } from "lucide-react"
 import {
@@ -10,6 +10,7 @@ import {
 import { SpaceCard } from "@/components/space/space-card"
 import { ProjectCard } from "@/components/space/project-card"
 import type { Space, Project } from "@/components/space/types"
+import { cn } from "@/lib/utils"
 
 const initialSpaces: Space[] = [
   {
@@ -73,18 +74,17 @@ export default function SpacePage() {
                 New Project
               </Button>
               <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="rounded-l-none px-2"
-                  >
-                    <ChevronDown className="h-4 w-4" />
-                  </Button>
+                <DropdownMenuTrigger
+                  className={cn(
+                    buttonVariants({ size: "sm", variant: "outline" }),
+                    "rounded-l-none px-2"
+                  )}
+                >
+                  <ChevronDown className="h-4 w-4" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent align="end" className="min-w-48">
                   <DropdownMenuItem>
-                    <Plus className="mr-2 h-4 w-4" />
+                    <Plus className="h-4 w-4" />
                     New Space
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -94,7 +94,7 @@ export default function SpacePage() {
         }
       />
 
-      <div className="space-y-1.5">
+      <div className="space-y-2">
         {initialSpaces.map((space) => (
           <SpaceCard key={space.id} space={space} />
         ))}

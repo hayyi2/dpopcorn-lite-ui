@@ -1,12 +1,12 @@
 import type { HomeTask } from "./types"
 
-const TODAY = "2026-06-24"
+const TODAY = new Date().toISOString().slice(0, 10)
 
 export const scheduledEntries: HomeTask[] = [
   {
     id: 1,
     project: "DPopcorn",
-    title: "Design new onboarding flow",
+    title: "Design new onboarding flow Design new onboarding flow",
     done: false,
     deadline: "2026-06-20",
     estimasi_durasi: 120,
